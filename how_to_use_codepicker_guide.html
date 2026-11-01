@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Use Woteq CodePicker</title>
+    
+    <style>
+        /* Core Theme Styles (Inherited from Main App) */
+        html, body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f4f9;
+            /* Note: Removed overflow: hidden so the article can scroll */
+        }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background-color: #2c3e50;
+            color: #ffffff;
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            flex-shrink: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .navbar-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 0.95em;
+            transition: color 0.2s;
+        }
+
+        .navbar-links a:hover {
+            color: #6cb2eb;
+            text-decoration: underline;
+        }
+
+        /* Article Specific Styles */
+        .article-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 40px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border-radius: 8px;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .article-container h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-top: 0;
+            font-size: 2em;
+        }
+
+        .article-container h2 {
+            color: #333;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
+            margin-top: 30px;
+        }
+
+        .article-container h3 {
+            color: #007bff;
+            margin-top: 25px;
+        }
+
+        .article-container p {
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+
+        .article-container ul {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+
+        .article-container li {
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+
+        .article-container strong {
+            color: #222;
+        }
+
+        /* Image Styling for the Article */
+        .article-container img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin: 25px 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+
+        /* Footer / Back button */
+        .back-action {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .back-action a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+
+        .back-action a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <!-- Reused Navbar Theme -->
+        <nav class="navbar">
+            <span class="navbar-brand">Woteq CodePicker</span>
+            <!-- Added Links Container -->
+            <div class="navbar-links">
+                <!-- Replace the '#' with your actual article and video URLs -->
+                <a href="how_to_use_codepicker_guide.html" target="_blank">How to use (Guide)</a>
+                <a href="https://youtu.be/I8bhUd2CDa8" target="_blank">How to use (YouTube Video)</a>
+            </div>
+        </nav>
+
+        <!-- Article Content -->
+        <div class="article-container">
+            <h1>Supercharge Your AI Coding with CodePicker: The Ultimate Context-Merging Tool</h1>
+            
+            <p>If you use AI assistants like ChatGPT, Gemini, or DeepSeek for coding, you already know the struggle. You run into a bug, or you need a new feature, but the AI needs context from multiple files to understand your project.</p>
+            
+            <p>Opening your code editor, finding the right files, and manually copying and pasting them one by one into the chat window is a tedious, flow-breaking process.</p>
+            
+            <p>Enter <strong>CodePicker</strong>—a web tool designed to eliminate this exact bottleneck.</p>
+
+            <h2>What is CodePicker?</h2>
+            <p>CodePicker is a lightweight, powerful web tool created to consolidate your project files into a single, unified file. It allows you to instantly merge your code so you can paste it directly into your favorite AI prompt.</p>
+            <p>By automating the gathering of your code, CodePicker removes the burden of manual copy-pasting. It allows you to maintain your focus and switch contexts effortlessly, ensuring your AI assistant gets the exact context it needs in seconds.</p>
+
+            <h2>Key Features</h2>
+
+            <h3>1. Seamless Project Browsing</h3>
+            <p>Getting started is incredibly simple. Once you provide the folder path of your project, CodePicker instantly scans and lists all the files and folders present in that directory. It creates a clean, easy-to-navigate tree view of your entire project right in your browser.</p>
+            <img src="https://woteq.com/wp-content/uploads/2026/03/selector.webp" alt="CodePicker project directory and file tree view">
+
+            <h3>2. Selective File Merging</h3>
+            <p>You don't always need to share your entire project with the AI. CodePicker gives you the option to selectively choose exactly which files you want to merge. Just check the boxes next to the relevant files, hit merge, and CodePicker will compile them into a single, cleanly formatted file.</p>
+            <img src="https://woteq.com/wp-content/uploads/2026/03/selection-1.webp" alt="Selecting specific files to merge using checkboxes">
+
+            <h3>3. Flexible Output Options</h3>
+            <p>Once your files are merged, getting them to your AI assistant is a breeze. CodePicker gives you two straightforward options:</p>
+            <ul>
+                <li><strong>Copy to Clipboard:</strong> Instantly copy the consolidated code with one click, ready to be pasted into ChatGPT, Gemini, or DeepSeek.</li>
+                <li><strong>Download as Text File:</strong> Download the merged data as a <code>.txt</code> file, which is perfect for AI platforms that allow document uploads.</li>
+            </ul>
+            <img src="https://woteq.com/wp-content/uploads/2026/03/copy_edit.webp" alt="Copy to clipboard and Download as text file options">
+
+            <h3>4. Quick File Actions: Copy & Edit</h3>
+            <p>CodePicker isn't just for bulk merging; it’s also great for quick, individual file tweaks. Next to every single file in your project tree, you will see two highly useful options:</p>
+            <ul>
+                <li><strong>Copy:</strong> Grab the entire contents of that specific file with a single click.</li>
+                <li><strong>Edit:</strong> Need to make a quick change before sending your code to the AI? The Edit button opens the file in a built-in browser editor. You can tweak your code right then and there, saving you from having to switch back and forth between CodePicker and your desktop IDE.</li>
+            </ul>
+            <img src="https://woteq.com/wp-content/uploads/2026/03/merge_download.webp" alt="Per-file copy and edit buttons next to file names">
+
+            <h2>Why You Should Start Using CodePicker</h2>
+            <p>The biggest enemy of a developer is friction. Every minute spent juggling tabs and formatting code for an AI prompt is a minute taken away from actual problem-solving.</p>
+            <p>CodePicker streamlines your workflow, ensures your AI gets the comprehensive context it needs to give you accurate answers, and keeps you in the zone.</p>
+            <p>Stop wrestling with manual copy-pasting. Try <strong>CodePicker</strong> today and experience a smoother, faster way to code with AI.</p>
+
+            <div class="back-action">
+                <a href="index.html">Open CodePicker Now</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Woteq CodePicker</title>
+    
+    <!-- CodeMirror Library Assets -->
+    <link rel="stylesheet" href="lib/codemirror/codemirror.min.css">
+    <link rel="stylesheet" href="lib/codemirror/theme/material.min.css">
+    <script src="lib/codemirror/codemirror.min.js"></script>
+    <script src="lib/codemirror/mode/xml/xml.min.js"></script>
+    <script src="lib/codemirror/mode/javascript/javascript.min.js"></script>
+    <script src="lib/codemirror/mode/css/css.min.js"></script>
+    <script src="lib/codemirror/mode/htmlmixed/htmlmixed.min.js"></script>
+    <script src="lib/codemirror/mode/python/python.min.js"></script>
+    <script src="lib/codemirror/mode/markdown/markdown.min.js"></script>
+    <script src="lib/codemirror/mode/clike/clike.min.js"></script>
+
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f4f9;
+            overflow: hidden;
+        }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .navbar {
+            background-color: #2c3e50;
+            color: #ffffff;
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            flex-shrink: 0;
+            /* Added Flexbox to align items left and right */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        /* Added styles for the top right links */
+        .navbar-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .navbar-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 0.95em;
+            transition: color 0.2s;
+        }
+
+        .navbar-links a:hover {
+            color: #6cb2eb;
+            text-decoration: underline;
+        }
+
+        .top-bar {
+            padding: 10px 20px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .top-bar .button-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .top-bar .stats-group {
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        #total-chars {
+            color: #007bff;
+            font-weight: bold;
+        }
+        #total-lines {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .split-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .panel {
+            width: 50%;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+            background-color: #ffffff;
+        }
+
+        .panel-left {
+            border-right: 1px solid #ddd;
+        }
+
+        h1, h2 {
+            color: #333;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        #search-box {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        #search-options {
+            margin-bottom: 15px;
+            font-size: 14px;
+            display: flex;
+            gap: 15px;
+        }
+
+        #tree-controls {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        #tree-controls button {
+            padding: 4px 10px;
+            font-size: 12px;
+            background-color: #6c757d;
+        }
+
+        #tree-controls button:hover {
+            background-color: #5a6268;
+        }
+
+        #file-tree, #file-tree ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+
+        #file-tree li {
+            padding: 4px 0;
+        }
+
+        #file-tree .folder .folder-header {
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #file-tree .folder .folder-header::before {
+            content: '[+] ';
+            margin-right: 5px;
+            font-family: monospace;
+        }
+
+        #file-tree .folder.expanded > .folder-header::before {
+            content: '[-] ';
+        }
+
+        #file-tree .folder > ul {
+            display: none;
+        }
+
+        #file-tree .folder.expanded > ul {
+            display: block;
+        }
+
+        #file-tree .file {
+            display: flex;
+            align-items: center;
+        }
+
+        #file-tree .file-label {
+            cursor: pointer;
+        }
+
+        #file-tree .file-label::before {
+            content: '📄 ';
+            margin-right: 5px;
+        }
+
+        #file-tree input[type="checkbox"] {
+            margin-right: 10px;
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+        }
+
+        .file-actions button {
+            margin-left: 10px;
+            padding: 2px 6px;
+            font-size: 12px;
+            background-color: #e0e0e0;
+            color: #333;
+            border: 1px solid #ccc;
+        }
+        .file-actions button:hover {
+            background-color: #c7c7c7;
+        }
+
+        #merged-content {
+            width: 100%;
+            height: calc(100vh - 260px);
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            background-color: #fafafa;
+            font-family: "Courier New", Courier, monospace;
+        }
+
+        #editor-container .CodeMirror {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            height: calc(100vh - 300px);
+            font-size: 14px;
+        }
+
+        button {
+            padding: 8px 15px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        .output-actions {
+            margin-top: 15px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <nav class="navbar">
+            <span class="navbar-brand">Woteq CodePicker</span>
+            <!-- Added Links Container -->
+            <div class="navbar-links">
+                <!-- Replace the '#' with your actual article and video URLs -->
+                <a href="how_to_use_codepicker_guide.html" target="_blank">How to use (Guide)</a>
+                <a href="https://youtu.be/I8bhUd2CDa8" target="_blank">How to use (YouTube Video)</a>
+            </div>
+        </nav>
+
+        <div class="top-bar">
+            <div class="button-group">
+                <button id="browse-dir">Browse Project Directory</button>
+                <button id="seq-merge" disabled>Merge Selected Files</button>
+                <label>
+                    <input type="checkbox" id="autorefresh-checkbox">
+                    Auto Refresh
+                </label>
+            </div>
+            <div class="stats-group">
+                <span>Total Chars: <span id="total-chars">0</span></span> |
+                <span>Total Lines: <span id="total-lines">0</span></span>
+            </div>
+        </div>
+
+        <div class="split-container">
+            <div class="panel panel-left">
+                <h2>Project Files</h2>
+                <input type="search" id="search-box" placeholder="Search for files...">
+                <div id="search-options">
+                    <label>
+                        <input type="radio" name="search-type" value="name" checked> Search by name
+                    </label>
+                    <label>
+                        <input type="radio" name="search-type" value="content"> Search in content
+                    </label>
+                </div>
+                <div id="tree-controls">
+                    <button id="expand-all-btn">Expand All</button>
+                    <button id="collapse-all-btn">Collapse All</button>
+                    <button id="select-all-btn">Select All Visible</button>
+                    <button id="unselect-all-btn">Unselect All</button>
+                </div>
+                <ul id="file-tree"></ul>
+            </div>
+            <div class="panel panel-right">
+                <div id="output-container">
+                    <h2>Merged Content</h2>
+                    <textarea id="merged-content" readonly></textarea>
+                    <div class="output-actions">
+                        <button id="copy-btn">Copy to Clipboard</button>
+                        <button id="download-btn">Download as .txt</button>
+                    </div>
+                </div>
+
+                <div id="editor-container" style="display: none;">
+                    <h2>Edit File: <span id="editing-filename"></span></h2>
+                    <textarea id="editor-textarea"></textarea>
+                    <div class="output-actions">
+                        <button id="save-edit-btn">Save Changes</button>
+                        <button id="cancel-edit-btn">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 
+      STEP 2: External JavaScript File 
+      This loads the logic from the separate file.
+    -->
+    <script src="woteq-picker.js"></script>
+
+
+
+  
+  </body>
+</html>
